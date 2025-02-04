@@ -227,6 +227,18 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+{
+  'rmagatti/auto-session',
+  lazy = false,
+
+  ---enables autocomplete for opts
+  ---@module "auto-session"
+  ---@type AutoSession.Config
+  opts = {
+    suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+    -- log_level = 'debug',
+  }
+},
   'tpope/vim-commentary',
   {
     'mrcjkb/rustaceanvim',
