@@ -89,7 +89,6 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -97,6 +96,10 @@ vim.g.have_nerd_font = true
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
+
+-- Fix shell inside nvim
+vim.opt.shell = 'bash'
+vim.opt.shellcmdflag = '-c'
 
 -- Make line numbers default
 vim.opt.number = true
@@ -227,18 +230,18 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-{
-  'rmagatti/auto-session',
-  lazy = false,
+  {
+    'rmagatti/auto-session',
+    lazy = false,
 
-  ---enables autocomplete for opts
-  ---@module "auto-session"
-  ---@type AutoSession.Config
-  opts = {
-    suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-    -- log_level = 'debug',
-  }
-},
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      -- log_level = 'debug',
+    },
+  },
   'tpope/vim-commentary',
   {
     'mrcjkb/rustaceanvim',
@@ -248,7 +251,8 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     config = function()
-      require('dap').adapters.lldb = {
+      local dap = require 'dap'
+      dap.adapters.lldb = {
         type = 'server',
         host = '127.0.0.1',
         port = 13000,
@@ -259,6 +263,10 @@ require('lazy').setup({
           -- on windows you may have to uncomment this:
           -- detached = false,
         },
+        vim.keymap.set('n', 'mb', dap.toggle_breakpoint, { desc = 'Toggle breakpoint' }),
+        vim.keymap.set('n', 'ml', dap.continue, { desc = 'Continue debugging' }),
+        vim.keymap.set('n', 'mr', dap.restart, { desc = 'Restart debug session' }),
+        vim.keymap.set('n', 'ms', dap.stop, { desc = 'Stop debug session' }),
       }
     end,
   },
@@ -269,7 +277,9 @@ require('lazy').setup({
       'nvim-neotest/nvim-nio',
     },
     config = function()
-      require('dapui').setup()
+      local dapui = require 'dapui'
+      dapui.setup()
+      vim.keymap.set('n', 'mu', dapui.toggle, { desc = 'Toggle debug UI' })
     end,
   },
   'andweeb/presence.nvim',
