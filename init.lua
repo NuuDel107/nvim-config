@@ -209,13 +209,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 -- Format on save
-vim.api.nvim_create_autocmd('BufWritePre', {
-  desc = 'Format on save',
-  group = vim.api.nvim_create_augroup('format-on-save', { clear = true }),
-  callback = function()
-    vim.lsp.buf.format { async = true }
-  end,
-})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--   desc = 'Format on save',
+--   group = vim.api.nvim_create_augroup('format-on-save', { clear = true }),
+--   callback = function()
+--     vim.lsp.buf.format { async = true }
+--   end,
+-- })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
