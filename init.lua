@@ -297,6 +297,7 @@ require('lazy').setup({
     version = '^5', -- Recommended
     lazy = false, -- This plugin is already lazy
   },
+  'davidhalter/jedi-vim',
   {
     'mfussenegger/nvim-dap',
     config = function()
@@ -947,6 +948,12 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
+    config = function()
+      require('tokyonight').setup {
+        style = 'night',
+        transparent = true,
+      }
+    end,
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
