@@ -278,7 +278,7 @@ require('lazy').setup({
       },
     },
   },
-  'terryma/vim-multiple-cursors',
+  'mg979/vim-visual-multi',
   {
     'rmagatti/auto-session',
     lazy = false,
