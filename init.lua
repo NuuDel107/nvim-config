@@ -200,6 +200,10 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Alt-B and Alt-W to go to end/start of line
+vim.keymap.set({ 'n', 'v' }, '<A-b>', '^')
+vim.keymap.set({ 'n', 'v' }, '<A-w>', '$')
+
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
@@ -978,17 +982,14 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
-    config = function()
-      require('tokyonight').setup {
-        style = 'night',
-        transparent = true,
-      }
-    end,
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
+        transparent = true,
         styles = {
+          sidebars = 'transparent',
+          floats = 'transparent',
           comments = { italic = false }, -- Disable italics in comments
         },
       }
